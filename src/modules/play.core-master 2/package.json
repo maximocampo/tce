@@ -1,0 +1,14 @@
+{
+  "name": "play.core-master-2",
+  "version": "1.0.0",
+  "description": "Core files, example and demos of the live-code ASCII playground:   [play.ertdfgcvb.xyz](https://play.ertdfgcvb.xyz)",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
