@@ -7,8 +7,13 @@ import {classesRef} from "../../globals";
 import fb from "gatsby-plugin-firebase-v9.0";
 import {adminState} from "./admin.page";
 
-const ClassForm = ({setShowForm = () => {}, setEdit = () => {}, edit, setCurrentPage}) => {
-    const { day } = useContext(adminState)
+const ClassForm = ({
+   setShowForm = () => {},
+   setEdit = () => {},
+   edit,
+   setCurrentPage
+}) => {
+    const { day, setDay } = useContext(adminState)
     
     const [title, setTitle] = useState(edit?.title || '')
     const [description, setDescription] = useState(edit?.description || '')
@@ -38,7 +43,6 @@ const ClassForm = ({setShowForm = () => {}, setEdit = () => {}, edit, setCurrent
             setLoading(true)
             
             if (edit) {
-                console.log('oo', day)
                 await editClass()
             } else {
                 
@@ -53,6 +57,7 @@ const ClassForm = ({setShowForm = () => {}, setEdit = () => {}, edit, setCurrent
             setShowForm || setCurrentPage('calendar')
             setEdit(null)
             setShowForm(false)
+            setDay(null)
         } catch (e) {
             console.log(e)
         } finally {
@@ -63,7 +68,7 @@ const ClassForm = ({setShowForm = () => {}, setEdit = () => {}, edit, setCurrent
     
     return (
         <D8Card>
-            <div style={{display: 'flex', flexDirection: 'column', width: '100%', height: '100%'}}>
+            <div style={{fontSize: '1.2rem', display: 'flex', flexDirection: 'column', width: '100%', height: '100%'}}>
                 <label>Titulo</label>
                 <input
                     value={title}
@@ -72,10 +77,15 @@ const ClassForm = ({setShowForm = () => {}, setEdit = () => {}, edit, setCurrent
                 />
                 <label>Descripcion</label>
                 <textarea
-                    rows={10}
+                    style={{
+                        boxShadow: '0px 0px 6px 2px #ffff',
+                        border: 'none'
+                    }}
+                    rows={6}
                     value={description}
                     onChange={({target: {value}}) => setDescription(value)}
                 />
+                <br/>
                 <label>Precio</label>
                 <input
                     value={price}
@@ -86,7 +96,7 @@ const ClassForm = ({setShowForm = () => {}, setEdit = () => {}, edit, setCurrent
                 <DinamicInput defaultValue={times} onChange={val => setTimes(val)} />
             </div>
             <Button
-                style={{width: '100%', marginTop: 6, padding: 10}}
+                style={{marginLeft: 'auto'}}
                 loading={loading}
                 onClick={onSubmit}
                 disabled={!(title && description && times)}

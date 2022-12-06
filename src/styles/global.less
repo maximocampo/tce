@@ -1,6 +1,8 @@
+@import "variables.less";
+
 @font-face {
-  font-family: 'CirrusCumulus';
-  src: url("/static/fonts/CirrusCumulus.woff") format('woff');
+  font-family: 'Cyber Tittle';
+  src: url("/static/fonts/Cyber Tittle 2.ttf") format('ttf');
 }
 
 @font-face {
@@ -13,18 +15,21 @@ body::-webkit-scrollbar {
 }
 
 html, body {
+  text-transform: lowercase;
   -ms-overflow-style: none;
   scrollbar-width: none;
   padding: 0;
   margin: 0;
-  font-size: 1em;
+  font-size: 1.2em;
   line-height: 1.2;
-  font-family: 'Sligoil-Micro', monospace;
+  font-family: "Helvetica", sans-serif;
+  font-weight: 200;
   color: #292929;
-  background-color: #e5e7ec;
+  background-color: @background;
   overflow: auto;
   display: flex;
   justify-content: center;
+  width: 100vw;
 }
 pre {
   position: absolute;
@@ -43,7 +48,6 @@ button {
   border: none;
   background-color: white;
 }
-
 
 
 @font-face {
@@ -120,8 +124,8 @@ input[type="checkbox"] {
   opacity: 1;
 }
 .checkboxOverride label {
-  background: none repeat scroll 0 0 #000000;
-  border: 1px solid #ffffff;
+  background: transparent;
+  border: 1px solid #000000;
   cursor: pointer;
   height: 20px;
   left: 0;
@@ -144,13 +148,15 @@ input[type="checkbox"] {
 }
 
 .site-wrapper {
-  max-width: 450px;
+  z-index: 2;
   height: 100vh;
+  width: 100vw;
+  max-width: 420px;
+  padding: 0 7%
 }
 
 @media (max-width: 500px) {
   .site-wrapper {
-    width: 100%;
   }
 }
 
@@ -242,24 +248,32 @@ input[type="checkbox"] {
 .react-calendar__navigation {
   display: flex;
   height: 44px;
-  margin-bottom: 1em;
+  font-size: 3rem;
+  margin-bottom: 10px;
+  font-family: system-ui;
+  white-space: nowrap;
 }
 .react-calendar__navigation button {
   min-width: 44px;
   background: none;
+  font-weight: 100;
 }
 .react-calendar__navigation button:disabled {
   background-color: #f0f0f0;
 }
 .react-calendar__navigation button:enabled:hover,
 .react-calendar__navigation button:enabled:focus {
-  background-color: #e6e6e6;
+  background-clip: content-box;
+  padding: 1px;
+  background-color: #ff3434;
+  box-shadow: inset 0px 0px 8px 6px @centerboxcolor;
+  border-radius: 50%;
 }
 .react-calendar__month-view__weekdays {
   text-align: center;
-  text-transform: uppercase;
-  font-weight: bold;
-  font-size: 0.75em;
+  font-weight: 100;
+  text-transform: lowercase;
+  font-size: 1em;
 }
 .react-calendar__month-view__weekdays__weekday {
   padding: 0.5em;
@@ -272,10 +286,10 @@ input[type="checkbox"] {
   font-weight: bold;
 }
 .react-calendar__month-view__days__day--weekend {
-  color: #23acff;
+  color: #6dc0ff !important;
 }
 .react-calendar__month-view__days__day--neighboringMonth {
-  color: #757575;
+  color: #f9ff77 !important;
 }
 .react-calendar__year-view .react-calendar__tile,
 .react-calendar__decade-view .react-calendar__tile,
@@ -283,12 +297,15 @@ input[type="checkbox"] {
   padding: 2em 0.5em;
 }
 .react-calendar__tile {
+  font-size: 1.8rem;
   max-width: 100%;
   padding: 16px 6.6667px;
   background: none;
   text-align: center;
-  line-height: 16px;
   position: relative;
+  font-weight: 100;
+  text-transform: lowercase;
+  color: white
 }
 
 .react-calendar__tile:disabled {
@@ -296,14 +313,17 @@ input[type="checkbox"] {
 }
 .react-calendar__tile:enabled:hover,
 .react-calendar__tile:enabled:focus {
-  background-color: #e6e6e6;
+  background-clip: content-box;
+  padding: 1px;
+  background-color: #ff0000;
+  border-radius: 50%;
+  box-shadow: inset 0px 0px 8px 9px @centerboxcolor;
 }
 .react-calendar__tile--now {
-  border: 1px dotted black;
+
 }
 .react-calendar__tile--now:enabled:hover,
 .react-calendar__tile--now:enabled:focus {
-  border: 1px solid black;
 }
 .react-calendar__tile--hasActive {
   background: #76baff;
@@ -319,6 +339,14 @@ input[type="checkbox"] {
 }
 .react-calendar--selectRange .react-calendar__tile--hover {
   background-color: #e6e6e6;
+}
+.react-calendar__navigation__label__labelText--from {
+  font-weight: 300;
+  text-transform: lowercase;
+  font-size: 1.2rem;
+}
+
+.react-calendar__month-view__days__day {
 }
 
 input {
@@ -367,4 +395,8 @@ label {
 
 .Header {
   display: none !important;
+}
+
+#___gatsby {
+  z-index: 1;
 }

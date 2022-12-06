@@ -19,12 +19,16 @@ const DynamicInput = ({defaultValue, onChange}) => {
             {[...Array(count)].map((_, i) => (
                 <div style={{display: 'flex', gap: 10, marginBottom: 10}}>
                     <TimePicker
+                        style={{backgroundColor: 'black', color: 'white'}}
+                        format="HH:mm"
                         value={value[i]?.from || null}
                         onChange={val => _onChange(val, i, 'from')}
                         disableClock
                         clearIcon={null}
                     />
                     <TimePicker
+                        style={{backgroundColor: 'black', color: 'white'}}
+                        format="HH:mm"
                         value={value[i]?.to || null}
                         onChange={val => _onChange(val, i, 'to')}
                         disableClock
@@ -32,25 +36,33 @@ const DynamicInput = ({defaultValue, onChange}) => {
                     />
                 </div>
             ))}
-            <p
-                onClick={() => setCount(count+1)}
-                style={{cursor: 'pointer'}}
-            >
-                +
-            </p>
-            {count > 1 && <p
-                onClick={() => {
-                    setCount(count-1)
-                    const newVal = value
-                    newVal.pop()
-                    setValue(newVal)
-                    onChange(newVal)
-                }}
-                style={{cursor: 'pointer'}}
-            >
-                -
-            </p>}
-            
+    
+            <div className="d-flex" style={{gap: 10, marginBottom: 12,}}>
+                <p
+                    onClick={() => setCount(count+1)}
+                    style={{cursor: 'pointer', fontSize: '2rem'}}
+                >
+                    +
+                </p>
+                {count > 1 && <div
+                    onClick={() => {
+                        setCount(count-1)
+                        const newVal = value
+                        newVal.pop()
+                        setValue(newVal)
+                        onChange(newVal)
+                    }}
+                    className="d-flex jc-center ai-center"
+                    style={{cursor: 'pointer', fontSize: '2rem'}}
+                >
+                    <div style={{
+                        backgroundColor: 'black',
+                        height: 2.5,
+                        width: 20,
+                        marginTop: 6
+                    }} />
+                </div>}
+            </div>
         </div>
     );
 };

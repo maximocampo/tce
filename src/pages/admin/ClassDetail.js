@@ -7,12 +7,14 @@ import fb from "gatsby-plugin-firebase-v9.0";
 import {adminState} from "./admin.page";
 
 const Detail = ({setShowForm, classes = [], setEdit, setDeleted}) => {
+    const { setDay } = useContext(adminState)
     const [classUsers, setClassUsers] = useState(null);
     const firestore = getFirestore(fb)
     
     const deleteClass = async (c) => {
         const classRef = doc(firestore, classesRef.path + '/' + c.id)
         await deleteDoc(classRef)
+        setDay(null)
         setDeleted(c.id)
     }
     
@@ -43,8 +45,8 @@ const Detail = ({setShowForm, classes = [], setEdit, setDeleted}) => {
     if (classUsers) {
         return (
             <div className="d-flex flex-col jc-sb w-100 h-100">
-                <div className="d-flex flex-col jc-sb h-100">
-                    <div style={{flex: 1}} className="class-card-container d-flex flex-col">
+                <div className="detail-container d-flex flex-col ai-center h-100">
+                <div style={{flex: 1}} className="class-card-container d-flex flex-col">
                         <div style={{flex: 1}} className="d-flex flex-col jc-sb">
                             <div>
                                 <p style={{fontSize: '1.5rem'}}>{classes.title}</p>
@@ -79,9 +81,8 @@ const Detail = ({setShowForm, classes = [], setEdit, setDeleted}) => {
                         </div>
                     </div>
                     
-                    <div style={{display: 'flex', flexDirection: 'column'}}>
+                    <div className="w-100 d-flex jc-sb">
                         <Button
-                            style={{width: 'auto', marginTop: 6, padding: 10}}
                             onClick={() => {
                                 setShowForm(true)
                                 setEdit(classes)
@@ -90,7 +91,6 @@ const Detail = ({setShowForm, classes = [], setEdit, setDeleted}) => {
                             EDITAR
                         </Button>
                         <Button
-                            style={{width: 'auto', marginTop: 6, padding: 10}}
                             onClick={() => deleteClass(classes)}
                         >
                             BORRAR

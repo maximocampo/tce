@@ -62,22 +62,36 @@ const Book = () => {
     
     const setContent = ({date}) => {
         const d8 = classes.find(d => d.date === moment(date).format('DD-MM-YYYY'))
+    
+        if (moment(date).isBefore(moment().subtract(1, 'days'))) {
+            return <div
+                className="calendar-tile-clickable d-flex jc-center ai-center pos-abs w-100 h-100"
+                style={{cursor: "not-allowed", backgroundColor: '#ff5f48', borderRadius: '50%'}}
+            >
+                <div
+                    className="yesterday-tile d-flex jc-center ai-center"
+                >
+                    {date.getDate()}
+                </div>
+            </div>
+        }
         
         return <div
-                onClick={() => {
-                    setDay(date)
-                    setCurrentPage(d8 ? 'detail' : 'new')
-                }}
-                className="calendar-tile-clickable d-flex jc-center ai-center pos-abs w-100 h-100"
+            onClick={() => {
+                setDay(date)
+                setCurrentPage(d8 ? 'detail' : 'new')
+            }}
             >
-                {d8 && (
+                <div
+                    className="calendar-tile-clickable d-flex jc-center ai-center pos-abs w-100 h-100 active-date"
+                    style={{backgroundColor: d8 ? "#58ff00" : '#ff5f48'}}
+                >
                     <div
-                        style={{backgroundColor: d8.full ? '#d2d2d2' : '#a7ef94'}}
                         className="calendar-flag d-flex jc-center ai-center"
                     >
                         {date.getDate()}
                     </div>
-                )}
+                </div>
             </div>
     }
     
@@ -94,62 +108,26 @@ const Book = () => {
                 setCurrentTime
             }}
         >
-            <Layout>
-                <div style={{display:'flex', justifyContent: 'center', marginTop: 20}}>
-                    <div className="center-box d-flex flex-col w-100">
-                            <D8Card>
-                                {currentPage === 'calendar' ? <Calendar selectRange={false} tileContent={setContent} /> :
-                                    <>
-                                        <div style={{width: '100%', display: 'flex', justifyContent: 'space-between'}}>
-                                            <div />
-                                            <p>
-                                                {moment(day)
-                                                    .startOf('day')
-                                                    .locale('es')
-                                                    .format('dddd, D [de] MMMM [de] YYYY')
-                                                }
-                                            </p>
-                                            <p onClick={() => setDay(null)} style={{cursor: 'pointer'}}>X</p>
-                                        </div>
-                                        {currentPage === 'detail' && <ClassDetail />}
-                                        {currentPage === 'new' && <ClassForm setCurrentPage={setCurrentPage} />}
-                                    </>
-                                }
-                            </D8Card>
-                    </div>
+            <div style={{display:'flex', flexDirection: 'column', alignItems: 'center', height: '93%', marginTop: -10}}>
+                <div className="center-box d-flex flex-col w-100">
+                    {currentPage === 'calendar' ? <Calendar selectRange={false} tileContent={setContent} /> :
+                        <>
+                            <div style={{width: '100%', display: 'flex', justifyContent: 'space-between'}}>
+                                <p>
+                                    {moment(day)
+                                        .startOf('day')
+                                        .locale('es')
+                                        .format('D [de] MMMM [de] YYYY')
+                                    }
+                                </p>
+                                <p onClick={() => setDay(null)} style={{cursor: 'pointer'}}>X</p>
+                            </div>
+                            {currentPage === 'detail' && <ClassDetail />}
+                            {currentPage === 'new' && <ClassForm setCurrentPage={setCurrentPage} />}
+                        </>
+                    }
                 </div>
-                <div style={{backgroundColor: 'white', margin: 20, zIndex: 2}}>
-                    <IgEmbed />
-                    <p>
-                        Taller de Costura Experimental es un espacio creativo de creación textil en
-                        CDMX donde rescatamos los valores intrínsecos de la moda; reflexionamos el
-                        tiempo en la moda para provocar memorias materiales plasmadas en confección
-                        libre, experimental y/o asistida.
-                        <br/>
-                        Profesionales de la moda a disposición de tu proyecto; Gerente de Costura,
-                        Costurera Senior y Patronista.
-                        <br/>
-                        <br/>
-                        Maquinaria Industrial para telas lijeras o medianas (mezclilla hasta 14 Oz);
-                        <br/>
-                        + Maquina de 1 Aguja Recta Electronica Brother
-                        <br/>
-                        + Overlock de 3 hilos Futura
-                        <br/>
-                        + Interlock Cama Plana de 3 agujas y 5 hilos (Collaretera) Futura
-                        <br/>
-                        <br/>
-                        Material de trabajo profesional;
-                        <br/>
-                        + Maniquís Dama T-7 y Hombre T-34, Plancha Profesional y Mesa de corte.
-                        <br/>
-                        <br/>
-                        Consumibles de alta calidad;
-                        <br/>
-                        + Hilos, Entretelas, Manta, Loneta, Estopilla, Papel bond y kraft.
-                    </p>
-                </div>
-            </Layout>
+            </div>
         </adminState.Provider>
     )
 }

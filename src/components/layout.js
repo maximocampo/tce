@@ -1,6 +1,7 @@
 import React from "react"
-import logo from "../images/tcelogo.svg";
 import IgEmbed from "./IgEmbed";
+import P5 from "./p5";
+import {indexState} from "../pages/index/index.page";
 
 const Cirr = ({children}) => {
     return <span
@@ -14,7 +15,6 @@ const Cirr = ({children}) => {
 }
 
 const Header = ({title, children}) => {
-    return <img style={{ zIndex: 2, position: 'fixed', bottom: 10, right: 10, width: 120}} src={logo} alt=""/>
     
     return <div style={{backgroundColor: 'white', margin: 20, zIndex: 2}}>
         <div
@@ -39,7 +39,11 @@ export default ({children}) => {
     return (
         <>
             <div className="site-wrapper">
-                <Header />
+                <h1
+                    className="logo"
+                >
+                    TCE
+                </h1>
                 {children}
             </div>
         </>

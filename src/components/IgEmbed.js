@@ -244,7 +244,4 @@ const IgEmbed = () => {
     );
 };
 
-//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
-
-//https://tallerdecosturaexperimental.com/?code=AQBGXBXn1s712FCY61rdSQ3Qq_J7seZ5udUb7RFmPXyJPvKzXJu9Nn3zu1mLg-KQcTgCM34jP2BalBmVP0PpRjCjfZpM5qLlPL7tkVyvy4exEVDfrEkDiGTVHMupV-OlFHxboqkb8jwlBWVzzRGYZmUdfZBmcUVbQgUomD--1eDY1BSOco4c--1glChkJ1zKSO0Xi0h-Mq6LU8Y2chI6DVofxpz_nQc8CAgLOmz7oMsZiw#_
 export default IgEmbed;

@@ -18,26 +18,30 @@ const ClassCard = ({title, description, times, price}) => {
         <div style={{flex: 1}} className="class-card-container d-flex flex-col">
             <div style={{flex: 1}} className="d-flex flex-col jc-sb">
                 <div>
-                    <p style={{fontSize: '1.5rem'}}>{title}</p>
+                    <p style={{
+                        fontSize: '2rem',
+                    }}>{title}</p>
                     <br/>
-                    <p style={{fontSize: '1rem', "white-space": "pre-line"}}>{description}</p>
+                    <p style={{fontSize: '1.2rem', "white-space": "pre-line"}}>{description}</p>
                     <br/>
-                    <p style={{fontSize: '1rem'}}>Precio: ${price}</p>
+                    <br/>
+                    <p style={{fontSize: '1.2rem'}}>Precio: ${price}</p>
+                    <p style={{textAlign: 'right', fontSize: '0.7rem'}}>* no reembolsable</p>
                     <br/>
                 </div>
                 <div style={{flexWrap: 'wrap', gap:10}} className="d-flex jc-sb">
-                    <p style={{fontSize: '0.7rem'}}>Selecciona el horario de tu preferencia:</p>
+                    <p style={{fontSize: '0.7rem'}}>selecciona el horario de tu preferencia:</p>
                     {times.map((t, i) => (
                         <div
                             onClick={() => t.full || setCurrentTime({i, t})}
                             className={`time-card cursor-pointer ${t.full && "time-card-disabled"}`}
                             style={{
-                                fontSize: '0.95rem',
+                                fontSize: '1.2rem',
                                 color: t.full ? 'white' : currentTime?.i === i ? 'white' : 'black',
-                                backgroundColor: t.full ? 'gray' : currentTime?.i === i ? 'black' : 'white'
+                                backgroundColor: t.full ? 'gray' : currentTime?.i === i ? 'black' : 'white',
                             }}
                         >
-                            <p>{t.from} - {t.to}</p>
+                            <p style={{textAlign: 'center'}}>{t.from} - {t.to}</p>
                         </div>
                     ))}
                     <div style={{flex: '47%'}} />
@@ -45,10 +49,10 @@ const ClassCard = ({title, description, times, price}) => {
             </div>
             <Button
                 onClick={onBook}
-                style={{width: 'auto', marginTop: 10, padding: 10}}
+                style={{marginLeft: 'auto', marginTop: 10}}
                 disabled={currentTime === null}
             >
-                BOOK
+                RESERVAR
             </Button>
         </div>
     )
@@ -83,18 +87,23 @@ const ClassDetail = () => {
     
     if (currentClass) {
         return (
-            <div className="detail-container d-flex flex-col ai-center w-100 h-100">
+            <div className="detail-container d-flex flex-col ai-center h-100">
                 <div className="d-flex w-100 jc-sb">
-                    <div />
-                    <p>{moment(day).startOf('day').locale('es').format('dddd, D [de] MMMM [de] YYYY')}</p>
-                    <p onClick={() => setDay(null)} className="cursor-pointer">X</p>
+                    <p style={{
+                        fontWeight: 300,
+                        textTransform: "lowercase",
+                        fontSize: "1.2rem",
+                        whiteSpace: 'nowrap',
+                        marginRight:10
+                    }}>{moment(day).startOf('day').locale('es').format('D [de] MMMM [de] YYYY')}</p>
+                    <p style={{fontSize: '1.2rem'}} onClick={() => setDay(null)} className="cursor-pointer">x</p>
                 </div>
                 <ClassCard {...currentClass} />
             </div>
         );
     }
     
-    return <Dots />
+    return <Dots style={{height: 400}} />
     
 };
 

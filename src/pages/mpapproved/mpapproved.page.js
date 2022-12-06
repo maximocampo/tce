@@ -46,15 +46,27 @@ const Mpapproved = ({location: {search}}) => {
                      newTimes.push({...t, full: count[`${t.from} - ${t.to}`] > 1})
                  })
                  
-                 await updateDoc(classRef, {
-                     users: arrayUnion({...docs[0].data(), id: docs[0].id}),
-                     times: newTimes
-                 });
-                 
+                 const currentUser = docs[0].data()
+                 const currentClass = currClass.data()
+    
                  await sendConfirmMail({
                      ...docs[0].data(),
                      message: "hola"
                  })
+                 
+                 if (currentClass
+                     .users
+                     .filter(u => u.classTime.from === currentUser.classTime.from)
+                     .filter(u => u.payments[0] === currentUser.payments[0])
+                     .length === 0
+                 ) {
+                     await updateDoc(classRef, {
+                         users: arrayUnion({...docs[0].data(), id: docs[0].id}),
+                         times: newTimes
+                     });
+    
+                     
+                 }
             }
             
             return setLoading(false)
@@ -71,13 +83,53 @@ const Mpapproved = ({location: {search}}) => {
     
     return (
         <Layout>
-            <div style={{display:'flex', justifyContent: 'center', marginTop: 40}}>
-                <div className="center-box d-flex flex-col w-100">
+            <div style={{display:'flex', flexDirection: 'column', alignItems: 'center', height: '93%', marginTop: -10}}>
+            <div className="center-box d-flex flex-col w-100">
                     <div className="detail-container d-flex flex-col ai-center w-100 h-100">
                         <div className="d-flex flex-col w-100 jc-sb">
-                            <p>Gracias</p>
+                            <p>
+                                Gracias por tu reservación en Taller de Costura Experimental!
+                            </p>
                             <br/>
-                            <p>Te mandamos un mail con mas detalles sobre el taller</p>
+                            <p>
+                                Horario: 		1pm a 5pm
+                                <br/>
+                                Fecha: 		1 Diciembre 2022
+                                <br/>
+                                Sucursal: 	Citlaltepetl 68, Condesa, CDMX, CP. 11000
+                                <br/>
+                                Imparte: 		María José Jimenez
+                                <br/>
+                                Proyecto:	Nubes de Plastico
+                                <br/>
+                                Descripción:	Reciclar plásticos para crear mampara de lamparas de casa.
+                            </p>
+                                <br/>
+                            <p>
+                                Contamos con expertos y equipo profesional de confección, patronaje y costura.
+                            </p>
+                                <br/>
+                            <p>
+                                Importante:
+                                <br/>
+                                * Traer 6 prendas para reciclar.
+                                <br/>
+                                * No reembolsable.
+                            </p>
+                            <p>
+                                <br/>
+                                Te esperamos para experimentar,
+                                <br/>
+                                Atentamente,
+                                <br/>
+                                María José Jiménez Fernández.
+                            </p>
+                            <p style={{wordBreak:'break-word'}}>
+                                <br/>
+                                Cualquier duda o comentario favor de contactar:
+                                <br/>
+                                <br/>
+                                Fernanda Alvarez - admin@tallerdecosturaexperimental.com</p>
                         </div>
                     </div>
                 </div>

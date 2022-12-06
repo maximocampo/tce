@@ -5,11 +5,16 @@ const Button = ({children, disabled, loading, style, ...props}) => {
     return (
         <button
             style={{
-                backgroundColor: disabled ? '#707070' : 'black',
-                padding: '4px 12px',
+                filter: disabled ? 'blur(2px)' : 'none',
+                backgroundColor: disabled ? '#dddddd' : '#9af11e',
                 color: 'white',
-                width: 'fit-content',
                 cursor: 'pointer',
+                textTransform: 'lowercase',
+                fontWeight: 'lighter',
+                boxShadow: disabled ? '0px 0px 8px 9px #dddddd' : '0px 0px 8px 9px #9af11e',
+                fontSize: '2rem',
+                borderRadius: 20,
+                width: 'fit-content',
                 ...style
             }}
             disabled={disabled}

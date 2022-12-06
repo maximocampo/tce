@@ -60,19 +60,24 @@ const Book = () => {
     }
     
     return (
-        <D8Card>
-            <>
+        <div className="detail-container">
+            <div style={{flex: 1}} className="d-flex flex-col jc-sb">
                 <div className="d-flex w-100 jc-sb">
-                    <div />
-                    <p>{moment(day).startOf('day').locale('es').format('dddd, D [de] MMMM [de] YYYY')}</p>
-                    <p onClick={() => setDay(null)} className="cursor-pointer">X</p>
+                    <p style={{
+                        fontWeight: 300,
+                        textTransform: "lowercase",
+                        fontSize: "1.2rem",
+                        whiteSpace: 'nowrap',
+                        marginRight:10
+                    }}>{moment(day).startOf('day').locale('es').format('D [de] MMMM [de] YYYY')}</p>
+                    <p style={{fontSize: '1.2rem'}} onClick={() => setDay(null)} className="cursor-pointer">x</p>
                 </div>
                 <div style={{flex: 1}} className="class-card-container d-flex flex-col">
                     <div style={{flex: 1}} className="d-flex flex-col jc-sb">
                         <div>
-                            <p style={{fontSize: '1.5rem'}}>{currentClass.title}</p>
+                            <p style={{fontSize: '2rem'}}>{currentClass.title}</p>
                             <br/>
-                            <div className="time-card cursor-pointer" style={{width: 'fit-content'}}>
+                            <div className="time-card cursor-pointer" style={{fontSize: '1.2rem', width: 'fit-content'}}>
                                 <p>{currentTime?.t?.from} - {currentTime?.t?.to}</p>
                             </div>
                         </div>
@@ -87,7 +92,7 @@ const Book = () => {
                         }}
                         onSubmit={handlePay}
                     >
-                        <Form className="d-flex flex-col">
+                        <Form style={{fontSize: '1.2rem'}} className="d-flex flex-col">
                             <label>nombre</label>
                             <Field type="text" name="firstName" />
                             <label>apellido</label>
@@ -96,9 +101,20 @@ const Book = () => {
                             <Field type="text" name="email" />
                             <label>telefono</label>
                             <Field type="text" name="phone" />
+                            <div style={{display: 'flex'}}>
+                                <div className="checkboxOverride">
+                                    <input
+                                        type="checkbox"
+                                        name=""
+                                        id="checkboxInputOverride"
+                                    />
+                                    <label htmlFor="checkboxInputOverride"/>
+                                </div>
+                                <p style={{marginTop: 2, fontSize: '0.8rem'}}>Acepto los terminos y condiciones</p>
+                            </div>
                             <Button
                                 loading={loading}
-                                style={{width: 'auto', marginTop: 10, padding: 10}}
+                                style={{marginLeft: 'auto', marginTop: 10}}
                                 type="submit"
                             >
                                 PAGAR
@@ -106,8 +122,8 @@ const Book = () => {
                         </Form>
                     </Formik>
                 </div>
-            </>
-        </D8Card>
+        </div>
+        </div>
     );
 };
 
